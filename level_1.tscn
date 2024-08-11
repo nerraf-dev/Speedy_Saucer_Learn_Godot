@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://ivlathf0cxje"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_4eibu"]
+[ext_resource type="Texture2D" uid="uid://gt0c8ubvo3ei" path="res://purple.png" id="1_d8bea"]
+[ext_resource type="PackedScene" uid="uid://bpie0ci1ag77t" path="res://player.tscn" id="2_ldl64"]
+[ext_resource type="PackedScene" uid="uid://bomrolgwcrrxu" path="res://track.tscn" id="4_w8fhl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lugun"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_f5djl"]
+font_size = 22
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_4eibu")
+
+[node name="Graphics" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -50
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_d8bea")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="Graphics"]
+z_index = -10
+offset_left = 372.0
+offset_top = 402.0
+offset_right = 562.0
+offset_bottom = 490.0
+text = "START"
+label_settings = SubResource("LabelSettings_lugun")
+
+[node name="EndLabel" type="Label" parent="Graphics"]
+z_index = -10
+offset_left = 737.0
+offset_top = -169.0
+offset_right = 870.0
+offset_bottom = -81.0
+text = "END"
+label_settings = SubResource("LabelSettings_lugun")
+
+[node name="Instructions" type="Label" parent="Graphics"]
+z_index = -10
+offset_left = 23.0
+offset_top = 22.0
+offset_right = 443.0
+offset_bottom = 259.0
+text = "Instructions:
+- Use WSAD or arrow keys to move the ship.
+- Reach the end of the track.
+- Each itme you leave the track you will be sent back to the start"
+label_settings = SubResource("LabelSettings_f5djl")
+autowrap_mode = 2
+
+[node name="Player" parent="." instance=ExtResource("2_ldl64")]
+position = Vector2(515, 307)
+
+[node name="Track" parent="." instance=ExtResource("4_w8fhl")]
+z_index = -50
+position = Vector2(27, 13)
+
+[connection signal="body_entered" from="Track" to="." method="_on_track_body_entered"]
+[connection signal="body_entered" from="Track/FinishZone" to="." method="_on_finish_zone_body_entered"]
+
+[editable path="Track"]
+[editable path="Track/FinishZone"]

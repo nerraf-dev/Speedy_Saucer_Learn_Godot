@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dt854c1ac4kk0"]
+
+[node name="FinishZone" type="Area2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
